@@ -11,8 +11,13 @@ export async function main(event) {
   };
 
   try {
-    const { Items } = await call('get', params);
-    return success(Items);
+    const { Item } = await call('get', params);
+
+    if (!Item) {
+      return failed({ status: false, error: 'Note not found!' });
+    }
+
+    return success(Item);
   } catch (err) {
     // Not the best approach to log an error
     console.log(err);
