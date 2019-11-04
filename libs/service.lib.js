@@ -15,10 +15,9 @@ export const get = async (id, requestContext) => {
   try {
     const { Item } = await call('get', params);
 
-    if (!Item)
-      return (response = failed({ status: false, error: 'Note not found!' }));
+    if (!Item) return failed({ status: false, error: 'Note not found!' });
 
-    return (response = success(Item));
+    return success(Item);
   } catch (err) {
     // Not the best approach to log an error
     console.log(err);
