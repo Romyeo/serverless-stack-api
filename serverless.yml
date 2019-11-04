@@ -45,6 +45,57 @@ provider:
         - "Fn::GetAtt": [NotesTable, Arn]
 
 functions:
+  express:
+    handler: express.main
+    events:
+      - http: ANY /
+      - http: "ANY {proxy+}"
+
+  expressCreate:
+    handler: express.main
+    events:
+      - http:
+          path: express/notes
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  expressList:
+    handler: express.main
+    events:
+      - http:
+          path: express/notes
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  expressGet:
+    handler: express.main
+    events:
+      - http:
+          path: express/notes/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  expressUpdate:
+    handler: express.main
+    events:
+      - http:
+          path: express/notes/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
+  expressDelete:
+    handler: express.main
+    events:
+      - http:
+          path: express/notes/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
   create:
     handler: create.main
     events:
